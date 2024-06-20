@@ -6,9 +6,8 @@ import './App.css';
 
 function App() {
   const [bookmarks, setBookmarks] = useState([]);
-  const [deleteToggle, setDeleteToggle] = useState(false);
 
-  const BASE_URL = 'http://localhost:8000';
+  const BASE_URL = 'https://bookmark-backend-1izg.onrender.com';
 
   useEffect(() => {
     const getBookmarks = async () => {
@@ -28,22 +27,17 @@ function App() {
     };
 
     getBookmarks();
-  }, [deleteToggle]);
+  }, []);
 
   return (
     <>
       <Title>Bookmarks</Title>
 
-      <NewForm
-        bookmarks={bookmarks}
-        setBookmarks={setBookmarks}
-        baseUrl={BASE_URL}
-      />
+      <NewForm bookmarks={bookmarks} setBookmarks={setBookmarks} />
 
       <BookmarkList
         bookmarks={bookmarks}
-        deleteToggle={deleteToggle}
-        setDeleteToggle={setDeleteToggle}
+        setBookmarks={setBookmarks}
         baseUrl={BASE_URL}
       />
     </>

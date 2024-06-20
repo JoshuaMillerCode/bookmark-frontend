@@ -7,7 +7,7 @@ export default function Bookmark({ bookmark, handleDelete }) {
       <p>{bookmark.description}</p>
       <button
         onClick={() => {
-          handleDelete(bookmark);
+          handleDelete(bookmark._id);
         }}
       >
         Delete
