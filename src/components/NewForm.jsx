@@ -29,6 +29,10 @@ export default function NewForm({ bookmarks, setBookmarks, baseUrl }) {
       const data = await response.json();
 
       setBookmarks([...bookmarks, data]);
+
+      nameRef.current.value = '';
+      desRef.current.value = '';
+      linkRef.current.value = '';
     } catch (err) {
       console.log(err);
     }
