@@ -21,6 +21,11 @@ export default function NewForm({ bookmarks, setBookmarks, baseUrl }) {
         },
         body: JSON.stringify(body),
       });
+
+      if (response.status !== 201) {
+        return;
+      }
+
       const data = await response.json();
 
       setBookmarks([...bookmarks, data]);

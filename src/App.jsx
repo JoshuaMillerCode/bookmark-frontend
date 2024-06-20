@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import NewForm from './components/NewForm';
-import Bookmarks from './components/Bookmarks';
+import BookmarkList from './components/BookmarkList';
 import Title from './components/Title';
 import './App.css';
 
@@ -14,7 +14,13 @@ function App() {
     const getBookmarks = async () => {
       try {
         const response = await fetch(`${BASE_URL}/bookmarks`);
+
+        if (response.status !== 200) {
+          return;
+        }
+
         const data = await response.json();
+
         setBookmarks(data);
       } catch (err) {
         console.log(err);
@@ -34,10 +40,11 @@ function App() {
         baseUrl={BASE_URL}
       />
 
-      <Bookmarks
+      <BookmarkList
         bookmarks={bookmarks}
         deleteToggle={deleteToggle}
         setDeleteToggle={setDeleteToggle}
+        baseUrl={BASE_URL}
       />
     </>
   );

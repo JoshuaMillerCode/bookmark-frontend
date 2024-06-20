@@ -1,3 +1,3 @@
 export default function Title({ children }) {
-  return <h1>{children}</h1>;
+  return <h1 className="title">{children}</h1>;
 }
