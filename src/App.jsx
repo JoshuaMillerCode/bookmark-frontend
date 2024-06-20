@@ -1,12 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import NewForm from './components/NewForm';
 import BookmarkList from './components/BookmarkList';
 import Title from './components/Title';
+import { ThemeContext, setBodyTheme } from './context/ThemeContext';
+
 import './App.css';
 
 function App() {
   const [bookmarks, setBookmarks] = useState([]);
   const [deleteToggle, setDeleteToggle] = useState(false);
+  const [theme, setTheme] = useState('light');
+  const bodyRef = useRef(null);
 
   const BASE_URL = 'http://localhost:8000';
 
@@ -28,25 +32,31 @@ function App() {
     };
 
     getBookmarks();
-  }, [deleteToggle]);
+  }, [deleteToggle, theme]);
+
+  useEffect(() => {
+    setBodyTheme(theme, bodyRef);
+  }, [theme]);
 
   return (
-    <>
-      <Title>Bookmarks</Title>
+    <ThemeContext.Provider value={theme}>
+      <div className={`App App-${theme}`}>
+        <Title>Bookmarks</Title>
 
-      <NewForm
-        bookmarks={bookmarks}
-        setBookmarks={setBookmarks}
-        baseUrl={BASE_URL}
-      />
+        <NewForm
+          bookmarks={bookmarks}
+          setBookmarks={setBookmarks}
+          baseUrl={BASE_URL}
+        />
 
-      <BookmarkList
-        bookmarks={bookmarks}
-        deleteToggle={deleteToggle}
-        setDeleteToggle={setDeleteToggle}
-        baseUrl={BASE_URL}
-      />
-    </>
+        <BookmarkList
+          bookmarks={bookmarks}
+          deleteToggle={deleteToggle}
+          setDeleteToggle={setDeleteToggle}
+          baseUrl={BASE_URL}
+        />
+      </div>
+    </ThemeContext.Provider>
   );
 }
 

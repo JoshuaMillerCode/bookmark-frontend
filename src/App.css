@@ -1,9 +1,25 @@
 #root {
   /* max-width: 1280px; */
   /* margin: 0 auto; */
-  padding: .5rem;
+  /* padding: .5rem; */
   text-align: center;
 }
+
+
+.App{
+  color: #213547;
+  background-color: #ffffff;
+}
+
+.App-dark {
+  color: #ffffff;
+  background-color: #213547;
+}
+
+
+
+
+
 
 /* Title styling */
 .title {
@@ -65,7 +81,7 @@
   height: 55vh;
   overflow: auto;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
   overflow-inline: clip;
 }
@@ -85,8 +101,9 @@
 /* Bookmark styling */
 
 .Bookmark {
-  background-color: #333; /* Dark background */
-  color: #fff; /* White text */
+  /* background-color: #d6ccc2; */ /* Dark background */
+  /* color: #203547;*/ /* White text */
+  /* border: 2px solid #203547; */
   padding: 20px;
   border-radius: 5px;
   margin: 10px;
@@ -96,6 +113,20 @@
   width: calc(33.333% - 20px); /* Three cards per row with margin */
   box-sizing: border-box;
 }
+
+.Bookmark-light {
+  background-color: #d6ccc2; /* Dark background */
+  color: #203547; /* White text */
+  border: 2px solid #203547;
+}
+
+.Bookmark-dark {
+  background-color:  #203547; /* Dark background */
+  color: #d6ccc2; /* White text */
+  border: 2px solid #d6ccc2;
+}
+
+
 
 .Bookmark a {
   color: #1e90ff; /* Link color */
@@ -127,5 +158,7 @@
   .BookmarkList {
     flex-direction: column;
     align-items: center;
+    align-content: center;
+    justify-content: flex-start;
   }
 } 
