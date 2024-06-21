@@ -4,7 +4,6 @@ import BookmarkList from './components/BookmarkList';
 import Title from './components/Title';
 import { ThemeContext, setBodyTheme } from './context/ThemeContext';
 import ThemeIcon from './components/ThemeIcon';
-
 import './App.css';
 
 function App() {
