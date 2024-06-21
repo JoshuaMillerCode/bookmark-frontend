@@ -1,9 +1,12 @@
 import { useRef } from 'react';
+import { useContext } from 'react';
+import { ThemeContext } from '../context/ThemeContext';
 
 export default function NewForm({ bookmarks, setBookmarks, baseUrl }) {
   const nameRef = useRef(null);
   const desRef = useRef(null);
   const linkRef = useRef(null);
+  const { theme } = useContext(ThemeContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,7 +43,7 @@ export default function NewForm({ bookmarks, setBookmarks, baseUrl }) {
 
   return (
     <form
-      className="NewForm"
+      className={`NewForm NewForm-${theme}`}
       style={{ textAlign: 'left' }}
       onSubmit={handleSubmit}
     >

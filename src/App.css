@@ -17,14 +17,21 @@
 }
 
 
-
-
+.icon {
+  position: absolute;
+  top: 12px;
+  right: 50px;
+  cursor: pointer;
+}
 
 
 /* Title styling */
 .title {
-  margin: 10px
+  margin: 10px;
+  /* align-self: center; */
 }
+
+
 
 
 
@@ -32,13 +39,25 @@
 .NewForm {
   text-align: left;
   padding: 20px;
-  border: 1px solid #ccc;
   border-radius: 5px;
   width: 80vw;
   /* max-width: 800px; */
   margin: 0 auto;
+  font-weight: bold;
+}
+
+.NewForm-light {
+  border: 1px solid  #2b2929;
+  color: #213547;
   background-color: #ffffff;
 }
+
+.NewForm-dark {
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  background-color: #213547;
+}
+
 
 .NewForm div {
   margin-bottom: 10px;
@@ -65,6 +84,7 @@
   color: #fff;
   cursor: pointer;
   margin-top: 20px;
+  font-weight: bold;
 }
 
 
@@ -115,17 +135,24 @@
 }
 
 .Bookmark-light {
-  background-color: #d6ccc2; /* Dark background */
-  color: #203547; /* White text */
+  background-color: #213547; /* Dark background */
+  color: #d6ccc2; /* White text */
   border: 2px solid #203547;
 }
 
+.Bookmark-light:hover {
+  border: 3px solid #d6ccc2
+}
+
 .Bookmark-dark {
-  background-color:  #203547; /* Dark background */
-  color: #d6ccc2; /* White text */
+  background-color: #d6ccc2; /* Dark background */
+  color: #203547; /* White text */
   border: 2px solid #d6ccc2;
 }
 
+.Bookmark-dark:hover {
+  border: 3px solid #213547
+}
 
 
 .Bookmark a {
