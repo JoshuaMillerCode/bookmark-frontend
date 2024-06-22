@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 
@@ -6,7 +6,26 @@ export default function NewForm({ bookmarks, setBookmarks, baseUrl }) {
   const nameRef = useRef(null);
   const desRef = useRef(null);
   const linkRef = useRef(null);
+  const catRef = useRef(null);
   const { theme } = useContext(ThemeContext);
+  const [cats, setCats] = useState([]);
+  const [catToggle, setCatToggle] = useState(false);
+  const [catOption, setCatOption] = useState('');
+  const [newCat, setNewCat] = useState(false);
+
+  useEffect(() => {
+    async function getCats() {
+      try {
+        const response = await fetch(`${baseUrl}/categories`);
+        const foundCats = await response.json();
+        setCats(foundCats);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    getCats();
+  }, [newCat]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,6 +35,12 @@ export default function NewForm({ bookmarks, setBookmarks, baseUrl }) {
         description: desRef.current.value,
         link: linkRef.current.value,
       };
+
+      if (catOption === 'create') {
+        body.category = catRef.current.value;
+      } else if (catOption !== 'nothing') {
+        body.category = catOption;
+      }
 
       const response = await fetch(`${baseUrl}/bookmarks`, {
         method: 'POST',
@@ -36,8 +61,24 @@ export default function NewForm({ bookmarks, setBookmarks, baseUrl }) {
       nameRef.current.value = '';
       desRef.current.value = '';
       linkRef.current.value = '';
+      catRef.current.value = '';
+
+      if (catOption === 'create') {
+        setNewCat(!newCat);
+      }
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const handleCatChange = (e) => {
+    setCatOption(e.target.value);
+
+    if (e.target.value === 'create') {
+      setCatToggle(true);
+    } else {
+      catRef.current.value = '';
+      setCatToggle(false);
     }
   };
 
@@ -47,11 +88,57 @@ export default function NewForm({ bookmarks, setBookmarks, baseUrl }) {
       style={{ textAlign: 'left' }}
       onSubmit={handleSubmit}
     >
-      Name: <input type="text" ref={nameRef} />
+      Name <br /> <input type="text" name="name" ref={nameRef} />
+      <div>
+        Category {/* <br /> */}
+        <select onChange={handleCatChange} defaultChecked={catOption}>
+          {cats.length ? (
+            cats
+              .map((c, i) => {
+                if (i === 0) {
+                  return (
+                    <option selected key={c._id} value={c.name}>
+                      {c.name}
+                    </option>
+                  );
+                }
+
+                return (
+                  <option key={c._id} value={c.name}>
+                    {c.name}
+                  </option>
+                );
+              })
+              .concat([
+                <option key="create" value="create">
+                  Create New
+                </option>,
+                <option key="create" value="nothing">
+                  --
+                </option>,
+              ])
+          ) : (
+            <>
+              <option value="create">Create New</option>
+              <option selected key="create" value="nothing">
+                --
+              </option>
+            </>
+          )}
+        </select>
+      </div>
       <br />
-      Description: <input type="text" ref={desRef} />
+      {catToggle ? (
+        <>
+          New Category <br /> <input type="text" ref={catRef} />
+          <br />
+        </>
+      ) : (
+        ''
+      )}
+      Description <br /> <input type="text" ref={desRef} />
       <br />
-      Link: <input type="text" ref={linkRef} />
+      Link <br /> <input type="text" ref={linkRef} />
       <br />
       <input type="submit" value="Create Bookmark" />
     </form>

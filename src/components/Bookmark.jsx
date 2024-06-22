@@ -6,19 +6,19 @@ export default function Bookmark({ bookmark, handleDelete }) {
 
   return (
     <div key={bookmark._id} className={`Bookmark Bookmark-${theme}`}>
-      <a target="_blank" href={bookmark.link}>
-        {bookmark.name} Link
+      <a target="_blank" href={bookmark.link} className="bounce-hover">
+        {bookmark.name}
       </a>
       <p>
         <strong>{bookmark.description}</strong>
       </p>
-      <button
+      <i
+        className="fa-regular fa-trash-can fa-2x shake-hover"
+        style={{ color: '#e11414' }}
         onClick={() => {
           handleDelete(bookmark);
         }}
-      >
-        Delete
-      </button>
+      />
     </div>
   );
 }
