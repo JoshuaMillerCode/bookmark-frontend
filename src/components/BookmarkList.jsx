@@ -25,7 +25,9 @@ export default function BookmarksList({ bookmarks, setBookmarks, baseUrl }) {
             );
           })
         ) : (
-          <p>No bookmarks found :/</p>
+          <p>
+            <strong>No bookmarks found</strong>
+          </p>
         )}
       </ul>
     </>

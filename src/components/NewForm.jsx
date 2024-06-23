@@ -95,7 +95,7 @@ export default function NewForm({
     >
       Name <br /> <input type="text" name="name" ref={nameRef} />
       <div>
-        Category {/* <br /> */}
+        <span>Category</span> {/* <br /> */}
         <select onChange={handleCatChange} defaultChecked={catOption}>
           {cats.length ? (
             cats

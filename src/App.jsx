@@ -4,6 +4,7 @@ import BookmarkList from './components/BookmarkList';
 import Title from './components/Title';
 import { ThemeContext, setBodyTheme } from './context/ThemeContext';
 import ThemeIcon from './components/ThemeIcon';
+import CategorySelect from './components/CategorySelect';
 import './App.css';
 
 function App() {
@@ -11,14 +12,20 @@ function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme'));
   const bodyRef = useRef(null);
   const [cats, setCats] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
   const BASE_URL = 'http://localhost:8000';
 
   useEffect(() => {
     const getBookmarks = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/bookmarks`);
+        let url = `${BASE_URL}/bookmarks/`;
+
+        if (selectedCategory !== 'all') {
+          url += '?category=' + selectedCategory;
+        }
+
+        const response = await fetch(url);
 
         if (response.status !== 200) {
           return;
@@ -33,7 +40,7 @@ function App() {
     };
 
     getBookmarks();
-  }, []);
+  }, [selectedCategory]);
 
   useEffect(() => {
     localStorage.setItem('theme', theme);
@@ -56,10 +63,18 @@ function App() {
           setCats={setCats}
         />
 
+        <CategorySelect
+          cats={cats}
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
+
         <BookmarkList
           bookmarks={bookmarks}
           setBookmarks={setBookmarks}
           baseUrl={BASE_URL}
+          cats={cats}
+          setCats={setCats}
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
         />
