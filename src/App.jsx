@@ -9,7 +9,6 @@ import './App.css';
 
 function App() {
   const [bookmarks, setBookmarks] = useState([]);
-  const [deleteToggle, setDeleteToggle] = useState(false);
   const [theme, setTheme] = useState('light');
   const bodyRef = useRef(null);
 
@@ -33,7 +32,7 @@ function App() {
     };
 
     getBookmarks();
-  }, [deleteToggle, theme]);
+  }, []);
 
   useEffect(() => {
     setBodyTheme(theme, bodyRef);
@@ -54,8 +53,7 @@ function App() {
 
         <BookmarkList
           bookmarks={bookmarks}
-          deleteToggle={deleteToggle}
-          setDeleteToggle={setDeleteToggle}
+          setBookmarks={setBookmarks}
           baseUrl={BASE_URL}
         />
       </div>

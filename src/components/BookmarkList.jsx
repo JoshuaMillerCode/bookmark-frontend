@@ -1,17 +1,15 @@
 import Bookmark from './Bookmark';
 
-export default function BookmarksList({
-  bookmarks,
-  deleteToggle,
-  setDeleteToggle,
-  baseUrl,
-}) {
+export default function BookmarksList({ bookmarks, setBookmarks, baseUrl }) {
   const handleDelete = async (b) => {
     try {
-      await fetch(`${baseUrl}/bookmarks/` + b._id, {
+      const response = await fetch(`${baseUrl}/bookmarks/` + b._id, {
         method: 'DELETE',
       });
-      setDeleteToggle(!deleteToggle);
+
+      const deletedBookmark = response.json();
+
+      setBookmarks(bookmarks.filter((b) => b._id !== deletedBookmark._id));
     } catch (err) {
       console.log(err);
     }
