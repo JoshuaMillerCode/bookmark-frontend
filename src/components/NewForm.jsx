@@ -2,13 +2,18 @@ import { useRef, useEffect, useState } from 'react';
 import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 
-export default function NewForm({ bookmarks, setBookmarks, baseUrl }) {
+export default function NewForm({
+  bookmarks,
+  setBookmarks,
+  baseUrl,
+  cats,
+  setCats,
+}) {
   const nameRef = useRef(null);
   const desRef = useRef(null);
   const linkRef = useRef(null);
   const catRef = useRef(null);
   const { theme } = useContext(ThemeContext);
-  const [cats, setCats] = useState([]);
   const [catToggle, setCatToggle] = useState(false);
   const [catOption, setCatOption] = useState('');
   const [newCat, setNewCat] = useState(false);

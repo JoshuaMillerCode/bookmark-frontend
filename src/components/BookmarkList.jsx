@@ -1,33 +1,33 @@
 import Bookmark from './Bookmark';
 
-export default function BookmarksList({
-  bookmarks,
-  deleteToggle,
-  setDeleteToggle,
-  baseUrl,
-}) {
+export default function BookmarksList({ bookmarks, setBookmarks, baseUrl }) {
   const handleDelete = async (b) => {
     try {
-      await fetch(`${baseUrl}/bookmarks/` + b._id, {
+      const response = await fetch(`${baseUrl}/bookmarks/` + b._id, {
         method: 'DELETE',
       });
-      setDeleteToggle(!deleteToggle);
+
+      const deletedBookmark = await response.json();
+
+      setBookmarks(bookmarks.filter((b) => b._id !== deletedBookmark._id));
     } catch (err) {
       console.log(err);
     }
   };
 
   return (
-    <ul className="BookmarkList">
-      {bookmarks.length ? (
-        bookmarks.map((b) => {
-          return (
-            <Bookmark key={b._id} bookmark={b} handleDelete={handleDelete} />
-          );
-        })
-      ) : (
-        <p>No bookmarks found :/</p>
-      )}
-    </ul>
+    <>
+      <ul className="BookmarkList">
+        {bookmarks.length ? (
+          bookmarks.map((b) => {
+            return (
+              <Bookmark key={b._id} bookmark={b} handleDelete={handleDelete} />
+            );
+          })
+        ) : (
+          <p>No bookmarks found :/</p>
+        )}
+      </ul>
+    </>
   );
 }

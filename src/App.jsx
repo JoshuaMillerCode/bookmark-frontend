@@ -8,9 +8,10 @@ import './App.css';
 
 function App() {
   const [bookmarks, setBookmarks] = useState([]);
-  const [deleteToggle, setDeleteToggle] = useState(false);
   const [theme, setTheme] = useState('light');
   const bodyRef = useRef(null);
+  const [cats, setCats] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   const BASE_URL = 'http://localhost:8000';
 
@@ -32,7 +33,7 @@ function App() {
     };
 
     getBookmarks();
-  }, [deleteToggle, theme]);
+  }, [theme]);
 
   useEffect(() => {
     setBodyTheme(theme, bodyRef);
@@ -49,13 +50,16 @@ function App() {
           bookmarks={bookmarks}
           setBookmarks={setBookmarks}
           baseUrl={BASE_URL}
+          cats={cats}
+          setCats={setCats}
         />
 
         <BookmarkList
           bookmarks={bookmarks}
-          deleteToggle={deleteToggle}
-          setDeleteToggle={setDeleteToggle}
+          setBookmarks={setBookmarks}
           baseUrl={BASE_URL}
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
         />
       </div>
     </ThemeContext.Provider>
