@@ -8,7 +8,7 @@ import './App.css';
 
 function App() {
   const [bookmarks, setBookmarks] = useState([]);
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState(localStorage.getItem('theme'));
   const bodyRef = useRef(null);
   const [cats, setCats] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -33,9 +33,11 @@ function App() {
     };
 
     getBookmarks();
-  }, [theme]);
+  }, []);
 
   useEffect(() => {
+    localStorage.setItem('theme', theme);
+
     setBodyTheme(theme, bodyRef);
   }, [theme]);
 
