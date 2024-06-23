@@ -9,7 +9,7 @@ import './App.css';
 
 function App() {
   const [bookmarks, setBookmarks] = useState([]);
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState(localStorage.getItem('theme'));
   const bodyRef = useRef(null);
 
   const BASE_URL = 'http://localhost:8000';
@@ -35,6 +35,8 @@ function App() {
   }, []);
 
   useEffect(() => {
+    localStorage.setItem('theme', theme);
+
     setBodyTheme(theme, bodyRef);
   }, [theme]);
 
