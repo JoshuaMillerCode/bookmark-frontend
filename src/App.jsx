@@ -7,7 +7,7 @@ import './App.css';
 function App() {
   const [bookmarks, setBookmarks] = useState([]);
 
-  const BASE_URL = 'https://bookmark-backend-1izg.onrender.com';
+  const BASE_URL = 'http://localhost:8000';
 
   useEffect(() => {
     const getBookmarks = async () => {
@@ -33,7 +33,11 @@ function App() {
     <>
       <Title>Bookmarks</Title>
 
-      <NewForm bookmarks={bookmarks} setBookmarks={setBookmarks} />
+      <NewForm
+        bookmarks={bookmarks}
+        setBookmarks={setBookmarks}
+        baseUrl={BASE_URL}
+      />
 
       <BookmarkList
         bookmarks={bookmarks}

@@ -13,6 +13,7 @@ export default function NewForm({ bookmarks, setBookmarks, baseUrl }) {
         description: desRef.current.value,
         link: linkRef.current.value,
       };
+      console.log(baseUrl);
 
       const response = await fetch(`${baseUrl}/bookmarks`, {
         method: 'POST',
